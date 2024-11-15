@@ -56,11 +56,13 @@ class Item(BaseModel):
 if __name__  ==  "__main__":
     print("Fast API is set")
     app = FastAPI()
+
     @app.post("/")
     async def predict(item : Item):
         dicted_item = dict(item)
         dicted_item['success'] = sentence_predict(dicted_item['content'])    
         return JSONResponse(dicted_item)
+    
     def shutdown():
         os.kill(os.getpid(), signal.SIGTERM)
         return Response(status_code=200, content="Server shutting down...")
